@@ -60,17 +60,18 @@ public class Copy implements Runnable {
      *
      * @throws IOException
      */
-    public void copy1() throws IOException {
+    public synchronized void copy1() throws IOException, InterruptedException {
         if (this.pos == this.end) {
             System.out.println(" 文件已经复制结束了....");
             return;
         }
+        Thread.sleep(100);
         RandomAccessFile bin = new RandomAccessFile(srcPath, "r");
         RandomAccessFile bout = new RandomAccessFile(dest, "rw");
 
         byte[] buffer = new byte[bufferSize];
         int read;
-        long total = pos;
+        long total = 0;
         bin.seek(pos);
         bout.seek(pos);
         while ((read = bin.read(buffer)) != -1) {
@@ -78,7 +79,7 @@ public class Copy implements Runnable {
             bout.write(buffer, 0, read);
             total += read;
 
-            if (total == this.end) {
+            if (total + pos == this.end) {
                 System.out.println("我的任务完成了. 当前完成的数据为：" + total);
                 System.out.println("c1. from：" + pos + " , end=" + end + " , total=" + new File(srcPath).length());
                 this.pos = this.end;
@@ -87,8 +88,6 @@ public class Copy implements Runnable {
                 throw new RuntimeException("end 计算出错了，需要修改程序，否则数据复制会出错...");
             }
         }
-//        System.out.println("---------------------------total=" + total);
-
         bout.close();
         bin.close();
     }
@@ -121,5 +120,16 @@ public class Copy implements Runnable {
     @Override
     public void run() {
 
+        while (true) {
+            if (this.pos == this.end) {
+                System.out.println(" 文件已经复制结束了....");
+                break;
+            }
+            try {
+                copy1();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
