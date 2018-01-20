@@ -17,16 +17,25 @@ public class Main {
 
         File sf = new File(rootPath, "raw/src/memo_methine.pdf"); // src
         File df = new File(rootPath, "raw/dest/memo_methine_copied.pdf"); // dest
-//        if (df.isFile()) {
-//            df.delete();
-//        }
+        if (df.isFile()) {
+            df.delete();
+        }
 
-        Thread.sleep(1000);
-        Copy copy = new Copy(df.getAbsolutePath(), sf.getAbsolutePath());
-//        copy.copy1();
+        long srcsize = sf.length();
+
+        System.out.println("srcSzie==" + srcsize);
+
+        long pos = 0;
+        long end = srcsize / 2 / 1024 * 1024;
+        Copy copy = new Copy(sf.getAbsolutePath(), df.getAbsolutePath(), pos, end);
+        copy.copy1();
 //
         System.out.println("srcLen==" + sf.length() + " , destLen=" + df.length());
-        copy.copy2();
+
+        pos = end;
+        end = srcsize;
+        copy = new Copy(sf.getAbsolutePath(), df.getAbsolutePath(), pos, end);
+        copy.copy1();
         System.out.println("---srcLen==" + sf.length() + " , destLen=" + df.length());
     }
 }
