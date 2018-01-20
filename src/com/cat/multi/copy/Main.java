@@ -2,7 +2,6 @@ package com.cat.multi.copy;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Created by cat on 2018/1/20.
@@ -23,19 +22,20 @@ public class Main {
 
         long srcsize = sf.length();
 
-        System.out.println("srcSzie==" + srcsize);
+        System.out.println("srcSize==" + srcsize);
 
-        long pos = 0;
-        long end = srcsize / 2 / 1024 * 1024;
-        Copy copy = new Copy(sf.getAbsolutePath(), df.getAbsolutePath(), pos, end);
-        copy.copy1();
-//
-        System.out.println("srcLen==" + sf.length() + " , destLen=" + df.length());
+//        long pos = 0;
+//        long end = srcsize / 2 / 1024 * 1024;
 
-        pos = end;
-        end = srcsize;
-        copy = new Copy(sf.getAbsolutePath(), df.getAbsolutePath(), pos, end);
-        copy.copy1();
-        System.out.println("---srcLen==" + sf.length() + " , destLen=" + df.length());
+        long pos1 = 0;
+        long end1= srcsize / 2 / 1024 * 1024;
+        Copy copy1 = new Copy(sf.getAbsolutePath(), df.getAbsolutePath(), pos1, end1);
+
+        long pos2 = srcsize / 2 / 1024 * 1024;
+        long end2 = srcsize;
+        Copy copy2 = new Copy(sf.getAbsolutePath(), df.getAbsolutePath(), pos2, end2);
+        new Thread(copy2).start();
+//        Thread.sleep(10);
+        new Thread(copy1).start();
     }
 }
