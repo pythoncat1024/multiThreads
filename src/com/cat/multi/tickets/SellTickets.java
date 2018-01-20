@@ -17,11 +17,11 @@ public class SellTickets implements Runnable {
     public void run() {
         while (true) {
 
-//            try {
-//                Thread.sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if (this.tickets > 0) {
                 System.out.println(Thread.currentThread().getName() + " 当前正在出售第 " + tickets + " 张票.");
                 tickets -= 1;
