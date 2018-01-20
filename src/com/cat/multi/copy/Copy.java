@@ -24,18 +24,17 @@ public class Copy implements Runnable {
 
 
     public void copy() throws IOException {
-        File df = new File(dest);
-        File src = new File(srcPath);
 
-        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(src));
-        BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(df));
+        RandomAccessFile bin = new RandomAccessFile(srcPath, "r");
+
+        RandomAccessFile bout = new RandomAccessFile(dest, "rw");
+//        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(src));
+//        BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(df));
 
         byte[] buffer = new byte[1024];
-        while (bin.read(buffer) != -1) {
-            if (buffer.length != 1024) {
-                System.out.println("len==" + buffer.length);
-            }
-            bout.write(buffer, 0, buffer.length);
+        int read;
+        while ((read = bin.read(buffer)) != -1) {
+            bout.write(buffer, 0, read);
         }
         bout.close();
         bin.close();
