@@ -9,9 +9,15 @@ public class PutRunnable<T> implements Runnable {
 
     private final Repertory<T> repertory;
 
+    private boolean stop = false;
+
     public PutRunnable(Repertory<T> repertory) {
         this.x = x;
         this.repertory = repertory;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
 
     int x = 0;
@@ -20,7 +26,7 @@ public class PutRunnable<T> implements Runnable {
     public void run() {
         String data;
         try {
-            while (true) {
+            while (!stop) {
                 if (x % 2 == 0) {
                     data = "烤鸭 " + x;
                 } else {
