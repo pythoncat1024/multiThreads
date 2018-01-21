@@ -87,7 +87,7 @@ public class Copy implements Runnable {
             total += read;
 
             if (total + pos == this.end) {
-                System.out.println("我的任务完成了. 当前完成的数据为：" + total);
+                System.out.println(Thread.currentThread().getName() + " 我的任务完成了. 当前完成的数据为：" + total);
                 System.out.println("c1. from：" + pos + " , end=" + end + " , total=" + new File(srcPath).length());
                 this.pos = this.end;
                 break;
