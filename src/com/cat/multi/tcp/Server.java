@@ -39,7 +39,7 @@ public class Server {
             Socket accept = ss.accept();
 
             InputStream in = accept.getInputStream();  // 这是阻塞方法? 不是！
-            System.out.println(" end...");
+//            System.out.println(" end...");
             byte[] bytes = new byte[1024];
             int read = 0;
             if ((read = in.read(bytes)) != -1) {

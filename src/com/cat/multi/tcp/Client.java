@@ -31,10 +31,8 @@ public class Client {
 
     public void send() throws IOException {
 
-
         while (true) {
-            Socket socket = new Socket();
-            socket.connect(new InetSocketAddress(host, port));
+            Socket socket = new Socket(host, port);  // 每次连接都创建一个新的 socket 对象
             OutputStream os = socket.getOutputStream();
             System.out.println("控制台输入发送内容：");
             Scanner scanner = new Scanner(System.in);
