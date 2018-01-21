@@ -11,10 +11,16 @@ public class ReaderRunnable<T> implements Runnable {
 
     private final Repertory<T> repertory;
     private final Timer timer;
+    private boolean stop;
 
     public ReaderRunnable(Repertory<T> repertory) {
         this.repertory = repertory;
         timer = new Timer();
+    }
+
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
     }
 
     @Override
@@ -23,6 +29,9 @@ public class ReaderRunnable<T> implements Runnable {
             @Override
             public void run() {
                 repertory.show();
+                if (stop) {
+                    timer.cancel();
+                }
             }
         }, 3000, 3000);
     }

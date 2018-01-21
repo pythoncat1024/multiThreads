@@ -145,7 +145,7 @@ public class Repertory<T> {
     public void show() {
         readLock.lock();
         try {
-            System.err.println("SHOW ### " + this.toString());
+            System.err.println("SHOW ### " + Thread.currentThread().getName()+"  " + this.toString());
         } finally {
             readLock.unlock();
         }

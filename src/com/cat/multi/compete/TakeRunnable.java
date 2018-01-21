@@ -8,15 +8,20 @@ package com.cat.multi.compete;
 public class TakeRunnable<T> implements Runnable {
 
     private final Repertory<T> repertory;
+    private boolean stop;
 
     public TakeRunnable(Repertory<T> repertory) {
         this.repertory = repertory;
     }
 
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
     @Override
     public void run() {
         try {
-            while (true) {
+            while (!stop) {
                 repertory.take();
             }
         } catch (InterruptedException e) {
