@@ -35,16 +35,19 @@ public class Server {
 
         System.out.println("开始监听连接过来的客户端：....");
 
-        Socket accept = ss.accept();
+        while (true) {
+            Socket accept = ss.accept();
 
-        InputStream in = accept.getInputStream();  // 这是阻塞方法? 不是！
-        System.out.println(" end...");
-        byte[] bytes = new byte[1024];
-        int read = 0;
-        while ((read=in.read(bytes))!=-1){
-            String clientHost = accept.getInetAddress().getHostName();
-            String receiveFromClient = new String(bytes, 0, read);
-            System.out.println("Server:" + clientHost + " , " + receiveFromClient);
+            InputStream in = accept.getInputStream();  // 这是阻塞方法? 不是！
+            System.out.println(" end...");
+            byte[] bytes = new byte[1024];
+            int read = 0;
+            if ((read = in.read(bytes)) != -1) {
+                String clientHost = accept.getInetAddress().getHostName();
+                String receiveFromClient = new String(bytes, 0, read);
+                System.out.println("Server:" + clientHost + " , " + receiveFromClient);
+            }
+            accept.close();
         }
     }
 }

@@ -30,15 +30,15 @@ public class Client {
     }
 
     public void send() throws IOException {
-        Socket socket = new Socket();
 
-        socket.connect(new InetSocketAddress(host, port));
-        OutputStream os = socket.getOutputStream();
-        System.out.println("控制台输入发送内容：");
-        Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
 
         while (true) {
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(host, port));
+            OutputStream os = socket.getOutputStream();
+            System.out.println("控制台输入发送内容：");
+            Scanner scanner = new Scanner(System.in);
+            String line = scanner.nextLine();
             if (line.startsWith(":q") || line.startsWith(":!q")) {
                 System.out.println("client exit...");
                 break;
