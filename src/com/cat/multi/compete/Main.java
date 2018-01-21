@@ -15,6 +15,7 @@ public class Main {
         doTasks();
 
 //        doTasksOld();
+
 //        simpleTest();
     }
 
@@ -102,7 +103,6 @@ public class Main {
             @Override
             public void run() {
                 System.out.println("全部停止....");
-//                showThreads();
                 // 停止生产，消费，查看
                 putRunnable.setStop(true);
                 takeRunnable.setStop(true);
@@ -121,6 +121,7 @@ public class Main {
 
                 stopAll.cancel(); // 这个关闭全部的定时器也不需要了
                 showThreads();
+
             }
         }, 15 * 1000);
     }
