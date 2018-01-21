@@ -1,31 +1,64 @@
 package com.cat.multi.sockets;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
- * Created by cat on 2018/1/21.
+ * 注意用到的输入输出流DataInputStream和DataOutputStream，成对出现，最好用字节流
  */
+// 客户端类
 public class SocketClient {
+    private String host = "localhost";// 默认连接到本机
+    private int port = 8189;// 默认连接到端口8189
 
-    public static void main(String[] args) throws IOException {
+    public SocketClient() {
 
-        Socket socket = new Socket("127.0.0.1", 8888);
+    }
 
-        InetAddress inetAddress = socket.getInetAddress();
+    // 连接到指定的主机和端口
+    public SocketClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
 
-        System.out.println("SocketClient:IntelAddress:" + inetAddress);
+    public void chat() {
+        try {
+            // 连接到服务器
+            Socket socket = new Socket(host, port);
 
-        OutputStream os = socket.getOutputStream();
+            try {
+                // 读取服务器端传过来信息的DataInputStream
+                DataInputStream in = new DataInputStream(socket
+                        .getInputStream());
+                // 向服务器端发送信息的DataOutputStream
+                DataOutputStream out = new DataOutputStream(socket
+                        .getOutputStream());
 
-        os.write("hello, server, i am client".getBytes());
+                // 装饰标准输入流，用于从控制台输入
+                Scanner scanner = new Scanner(System.in);
 
-        os.flush();
+                while (true) {
+                    String send = scanner.nextLine();
+                    System.out.println("客户端：" + send);
+                    // 把从控制台得到的信息传送给服务器
+                    out.writeUTF("客户端：" + send);
+                    // 读取来自服务器的信息
+                    String accpet = in.readUTF();
+                    System.out.println(accpet);
+                }
 
-        os.close();
+            } finally {
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        System.out.println("client... die..");
+    public static void main(String[] args) {
+        new SocketClient().chat();
     }
 }
