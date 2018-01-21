@@ -12,9 +12,10 @@ import java.util.concurrent.Future;
 public class Main {
     public static void main(String[] args) {
 
-//        doTasks();
+        doTasks();
 
-        doTasksOld();
+//        doTasksOld();
+
 //        simpleTest();
     }
 
@@ -119,7 +120,8 @@ public class Main {
 //                showThreads();
 
                 stopAll.cancel(); // 这个关闭全部的定时器也不需要了
-//                showThreads();
+                showThreads();
+
             }
         }, 15 * 1000);
     }
