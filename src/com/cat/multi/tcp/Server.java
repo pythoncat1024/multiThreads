@@ -32,20 +32,19 @@ public class Server {
     public void service() throws IOException {
 
         ServerSocket ss = new ServerSocket(port);
-//        ss.bind(new InetSocketAddress(port));
 
         System.out.println("开始监听连接过来的客户端：....");
 
         Socket accept = ss.accept();
 
-        InputStream in = accept.getInputStream();  // 这是阻塞方法?
+        InputStream in = accept.getInputStream();  // 这是阻塞方法? 不是！
         System.out.println(" end...");
-//            System.out.println("--- 接收客户端发送的数据---");
         byte[] bytes = new byte[1024];
-        int read = in.read(bytes);
-        String clientHost = accept.getInetAddress().getHostName();
-        String receiveFromClient = new String(bytes, 0, read);
-        System.out.println("Server:" + clientHost + " , " + receiveFromClient);
-
+        int read = 0;
+        while ((read=in.read(bytes))!=-1){
+            String clientHost = accept.getInetAddress().getHostName();
+            String receiveFromClient = new String(bytes, 0, read);
+            System.out.println("Server:" + clientHost + " , " + receiveFromClient);
+        }
     }
 }

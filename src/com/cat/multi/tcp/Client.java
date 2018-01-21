@@ -32,22 +32,19 @@ public class Client {
     public void send() throws IOException {
         Socket socket = new Socket();
 
-        socket.connect(new InetSocketAddress(host,port));
+        socket.connect(new InetSocketAddress(host, port));
         OutputStream os = socket.getOutputStream();
         System.out.println("控制台输入发送内容：");
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
 
-        os.write(line.getBytes());
-        os.flush();
-//        while (true) {
-//            System.out.println("socket--"+socket.isClosed());
-//            if (line.startsWith(":q") || line.startsWith(":!q")) {
-//                System.err.println("Client 主动退出了...");
-//                break;
-//            }
-//            os.write(line.getBytes());
-//            os.flush();
-//        }
+        while (true) {
+            if (line.startsWith(":q") || line.startsWith(":!q")) {
+                System.out.println("client exit...");
+                break;
+            }
+            os.write(line.getBytes());
+            os.flush();
+        }
     }
 }
