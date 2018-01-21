@@ -3,13 +3,12 @@ package com.cat.multi.tcp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by cat on 2018/1/21.
+ * Client 1
  */
 public class Client {
 
