@@ -44,7 +44,7 @@ public class Server {
                 break;
             }
             Socket accept = ss.accept();
-            new Thread(new HandleSocket(accept)).start();
+            new Thread(new HandleSocket(ss, accept)).start();
         }
         ss.close();
     }
@@ -52,8 +52,10 @@ public class Server {
     private class HandleSocket implements Runnable {
 
         private final Socket accept;
+        private final ServerSocket ss;
 
-        public HandleSocket(Socket socket) {
+        public HandleSocket(ServerSocket ss, Socket socket) {
+            this.ss = ss;
             this.accept = socket;
         }
 
@@ -74,8 +76,9 @@ public class Server {
 //                        break;  // 收到关闭服务器的消息，就不发消息给客户端了，直接退出服务器
                         stop = true;
                         accept.close();
-
                         Thread.currentThread().interrupt(); // 既然要关服务器了，把线程也停掉.
+                        ss.close();
+                        System.err.println("服务器关闭了...");
                         return;
                     }
                     System.out.println("Server:" + clientHost + " , " + receiveFromClient);
