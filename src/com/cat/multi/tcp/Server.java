@@ -2,6 +2,7 @@ package com.cat.multi.tcp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -37,17 +38,32 @@ public class Server {
 
         while (true) {
             Socket accept = ss.accept();
-
             InputStream in = accept.getInputStream();  // 这是阻塞方法? 不是！
-//            System.out.println(" end...");
+            // 读取客户端发送的数据
             byte[] bytes = new byte[1024];
             int read = 0;
+            String receiveFromClient = null;
             if ((read = in.read(bytes)) != -1) {
                 String clientHost = accept.getInetAddress().getHostName();
-                String receiveFromClient = new String(bytes, 0, read);
+                receiveFromClient = new String(bytes, 0, read);
+                if (receiveFromClient.startsWith(":!q")) {
+                    System.err.println("收到客户端要关闭服务器的请求了...");
+                    break;  // 收到关闭服务器的消息，就不发消息给客户端了，直接退出服务器
+                }
                 System.out.println("Server:" + clientHost + " , " + receiveFromClient);
+            } else {
+                System.err.println("TCP-Server read error:" + read);
             }
+            // 每次收到数据，都给客户端一个响应：
+
+            OutputStream os = accept.getOutputStream();
+            String toClient = "toClient:" + receiveFromClient;
+            os.write(toClient.getBytes());
+            os.flush();
+
             accept.close();
         }
+
+        ss.close();
     }
 }
