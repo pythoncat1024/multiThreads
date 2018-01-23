@@ -1,8 +1,10 @@
 package com.cat.multi.tcp;
 
+import javax.crypto.Mac;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutionException;
@@ -13,10 +15,15 @@ import java.util.concurrent.ExecutionException;
  */
 public class Server {
 
-
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-
-
+        System.out.println(
+                System.getProperty("os.name") + " , " +
+                        System.getProperty("os.version") + " , " +
+                        System.getProperty("os.arch")
+        );
+        // Mac OS X , 10.13.2 , x86_64
+        String addr = InetAddress.getLocalHost().getHostAddress();// 获得本机IP
+        System.out.println("self address==" + addr);
         int port = 8888;
         String host = "127.0.0.1";
         // server
@@ -70,6 +77,7 @@ public class Server {
                 String receiveFromClient = null;
                 if ((read = in.read(bytes)) != -1) {
                     String clientHost = accept.getInetAddress().getHostName();
+//                    String clientAdd = accept.getInetAddress().getHostAddress();
                     receiveFromClient = new String(bytes, 0, read);
                     if (receiveFromClient.startsWith(":!q")) {
                         System.err.println("收到客户端要关闭服务器的请求了...");
@@ -81,7 +89,7 @@ public class Server {
                         System.err.println("服务器关闭了...");
                         return;
                     }
-                    System.out.println("Server:" + clientHost + " , " + receiveFromClient);
+                    System.out.println("from:" + clientHost + " , " + receiveFromClient);
                 } else {
                     System.err.println("TCP-Server read error:" + read);
                 }

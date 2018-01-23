@@ -3,6 +3,7 @@ package com.cat.multi.tcp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -15,7 +16,9 @@ public class Client {
     public static void main(String[] args) throws IOException {
 
         int port = 8888;
-        String host = "127.0.0.1";
+        String addr = InetAddress.getLocalHost().getHostAddress();// 获得本机IP
+        System.out.println("self address==" + addr);
+        String host = addr;
         // client
         Client client = new Client(host, port);
         client.send();
