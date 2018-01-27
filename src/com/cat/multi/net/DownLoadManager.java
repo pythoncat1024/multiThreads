@@ -163,10 +163,86 @@ public final class DownLoadManager {
      * @return 累计下载量
      * @throws IOException ex
      */
+    public static long downloadRandom(String urlPath, String destPath, int kb) throws IOException {
+        long remoteLength = getRemoteLength(urlPath);
+        if (checkFinish(remoteLength, destPath)) {
+            System.out.println("download already finished..." + new File(destPath).getName());
+            return remoteLength;
+        }
+
+        File target = new File(destPath);
+
+        URL url;
+        HttpURLConnection conn = null;
+        BufferedInputStream bin = null;
+
+        RandomAccessFile rout = null;
+        try {
+            url = new URL(urlPath);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");   // 设置本次请求的方式 ， 默认是GET方式， 参数要求都是大写字母
+            conn.setConnectTimeout(5000);   // 设置连接超时
+            conn.setDoInput(true);    //  是否打开输入流 ， 此方法默认为true
+            conn.setDoOutput(true);  //  是否打开输出流， 此方法默认为false
+            conn.connect();    //  表示连接
+
+            int code = conn.getResponseCode();
+            System.out.println("code == " + code); // 200
+            if (code == 200) {
+                System.out.printf("conn success. src=%s code: %d\n", urlPath, code);
+                InputStream is = conn.getInputStream();
+                bin = new BufferedInputStream(is);
+                if (kb < 1) {
+                    kb = 1;
+                }
+                byte[] buffer = new byte[1024 * kb];
+                rout = new RandomAccessFile(destPath, "rw");
+                int read;
+                long total = 0;
+                final long currentLen = target.length();
+                long skip = bin.skip(currentLen);
+                System.out.println(">>>>>>>>>> skip==" + skip);
+                rout.seek(currentLen);
+                int times = 0;
+                while ((read = bin.read(buffer)) != -1) {
+                    rout.write(buffer, 0, read);
+                    total += read;
+
+                    System.out.print("times:" + times + " read: " + read + "\t");
+                    if (times % 5 == 0 && times != 0) {
+                        System.out.println();
+                    }
+                    times++;
+                }
+                System.out.println("##### download finish #####  " + new File(destPath).getName());
+                return total + currentLen;
+            } else {
+                System.err.printf("conn fail. src=%s code: %d", urlPath, code);
+                return -1;
+            }
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+            if (rout != null) {
+                rout.close();
+            }
+            if (bin != null) {
+                bin.close();
+            }
+        }
+    }
+
+    /**
+     * @param urlPath  URL
+     * @param destPath file
+     * @return 累计下载量
+     * @throws IOException ex
+     */
     public static long downloadRandom(String urlPath, String destPath) throws IOException {
         long remoteLength = getRemoteLength(urlPath);
         if (checkFinish(remoteLength, destPath)) {
-            System.out.println("download already finished...");
+            System.out.println("download already finished..." + new File(destPath).getName());
             return remoteLength;
         }
 
@@ -202,14 +278,15 @@ public final class DownLoadManager {
                 rout.seek(currentLen);
                 int times = 0;
                 while ((read = bin.read(buffer)) != -1) {
+                    System.out.print("times:" + times + " read: " + read + "\t");
                     rout.write(buffer, 0, read);
                     total += read;
                     if (times % 5 == 0 && times != 0) {
-                        System.out.print("times:" + times + " read: " + read + "\t");
+                        System.out.println();
                     }
                     times++;
                 }
-                System.out.println("##### download finish #####");
+                System.out.println("##### download finish #####  " + new File(destPath).getName());
                 return total + currentLen;
             } else {
                 System.err.printf("conn fail. src=%s code: %d", urlPath, code);
