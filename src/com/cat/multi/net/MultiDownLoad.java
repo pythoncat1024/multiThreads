@@ -25,10 +25,12 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit0 + " , " + submit0.get());
-                submit0.cancel(true);
-                service.shutdown();
+
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+                submit0.cancel(true);
+                service.shutdown();
             }
 
         }
@@ -45,10 +47,12 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit1 + " , " + submit1.get());
-                submit1.cancel(true);
-                executorService.shutdown();
+
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+                submit1.cancel(true);
+                executorService.shutdown();
             }
         }
 
@@ -64,9 +68,11 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit2 + " , " + submit2.get());
-                service.shutdown();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+                submit2.cancel(true);
+                service.shutdown();
             }
         }
         {
@@ -82,9 +88,11 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit3 + " , " + submit3.get());
-                service.shutdown();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+                submit3.cancel(true);
+                service.shutdown();
             }
         }
         {
@@ -99,9 +107,11 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit4 + " , " + submit4.get());
-                service.shutdown();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+                submit4.cancel(true);
+                service.shutdown();
             }
         }
 
@@ -117,9 +127,11 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit + " , " + submit.get());
-                service.shutdown();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
+            } finally {
+                submit.cancel(true);
+                service.shutdown();
             }
         }
 
@@ -135,10 +147,12 @@ public class MultiDownLoad {
             });
             try {
                 System.out.println(submit + " , " + submit.get());
-                service.shutdown();
             } catch (InterruptedException | ExecutionException e) {
-                System.err.println(submit + " , newly1030" );
+                System.err.println(submit + " , newly1030");
                 e.printStackTrace();
+            } finally {
+                submit.cancel(true);
+                service.shutdown();
             }
         }
 
