@@ -20,4 +20,7 @@ public interface NetPath {
     String urlPath2 = "https://201712mp4.89soso.com/20171205/10/1/xml/91_a2f11e7a95d94f5b81a226a1f9c7676f.mp4";
     String urlPath3 = "https://2017mp4.14popo.com/e/20170814/9/1/xml/91_a64037f9a7864122fd03f85786900568.mp4";
     String urlPath4 = "https://2017mp4.14popo.com/e/20170814/15/1/xml/91_e4e98971a5f74cd0a3784d26fd55ec17.mp4";
+    String urlPath5 = "https://201712mp4.89soso.com/20171205/22/1/xml/91_7557e980ec674b73cc717210e3314668.mp4";
+
+    String urlPath6 = "https://2017mp4.54popo.com/e/20171109/1/1/xml/91_822da8ed0e5347a4df2d998d19eb9c28.mp4";
 }

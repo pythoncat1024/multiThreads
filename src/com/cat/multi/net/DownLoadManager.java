@@ -189,7 +189,7 @@ public final class DownLoadManager {
             int code = conn.getResponseCode();
             System.out.println("code == " + code); // 200
             if (code == 200) {
-                System.out.printf("conn success. src=%s code: %d\n", urlPath, code);
+                System.out.printf("conn success. src=%s code: %d. dest=%s\n", urlPath, code, destPath);
                 InputStream is = conn.getInputStream();
                 bin = new BufferedInputStream(is);
                 if (kb < 1) {
@@ -208,7 +208,7 @@ public final class DownLoadManager {
                     rout.write(buffer, 0, read);
                     total += read;
 
-                    System.out.print("times:" + times + " read: " + read + "\t");
+                    System.out.print("times:" + times + " read: " + read + ":" + (total + currentLen)+":"+remoteLength + "\t");
                     if (times % 5 == 0 && times != 0) {
                         System.out.println();
                     }
@@ -265,7 +265,7 @@ public final class DownLoadManager {
             int code = conn.getResponseCode();
             System.out.println("code == " + code); // 200
             if (code == 200) {
-                System.out.printf("conn success. src=%s code: %d\n", urlPath, code);
+                System.out.printf("conn success. src=%s code: %d. dest=%s\n", urlPath, code, destPath);
                 InputStream is = conn.getInputStream();
                 bin = new BufferedInputStream(is);
                 byte[] buffer = new byte[1024 * 100];
@@ -278,7 +278,7 @@ public final class DownLoadManager {
                 rout.seek(currentLen);
                 int times = 0;
                 while ((read = bin.read(buffer)) != -1) {
-                    System.out.print("times:" + times + " read: " + read + "\t");
+                    System.out.print("times:" + times + " read: " + read + ":" + (total + currentLen)+":"+remoteLength + "\t");
                     rout.write(buffer, 0, read);
                     total += read;
                     if (times % 5 == 0 && times != 0) {
