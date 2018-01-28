@@ -23,4 +23,9 @@ public interface NetPath {
     String urlPath5 = "https://201712mp4.89soso.com/20171205/22/1/xml/91_7557e980ec674b73cc717210e3314668.mp4";
 
     String urlPath6 = "https://2017mp4.54popo.com/e/20171109/1/1/xml/91_822da8ed0e5347a4df2d998d19eb9c28.mp4";
+
+    String urlPath7 = "https://www.4466cb.com/html/vodplay/?id=1684&j=1&hd=2";
+
+    String urlPath8 = "https://www.4466cb.com/html/vodplay/?id=1569&j=1&hd=2";
+    String urlPath9 = "http://video.jiagew762.com:8091/20180126/HGxrnThs/index.m3u8";
 }

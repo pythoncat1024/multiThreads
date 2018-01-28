@@ -3,6 +3,8 @@ package com.cat.multi.net;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cat on 2018/1/28.
@@ -13,6 +15,46 @@ public final class DownLoadManager {
     private DownLoadManager() {
         throw new RuntimeException("can not fuck me");
     }
+
+
+    /**
+     * 获取下载的文件长度
+     *
+     * @param urlPath 下载路径
+     * @throws IOException ex
+     */
+    public static void showHeaders(String urlPath) throws IOException {
+        URL url;
+
+        HttpURLConnection conn = null;
+        try {
+            url = new URL(urlPath);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("HEAD");   //设置本次请求的方式 ， 默认是GET方式， 参数要求都是大写字母
+            conn.setConnectTimeout(5000);//设置连接超时
+            conn.setDoInput(true);//是否打开输入流 ， 此方法默认为true
+            conn.setDoOutput(true);//是否打开输出流， 此方法默认为false
+            conn.connect();//表示连接
+            int code = conn.getResponseCode();
+            System.out.println("code == " + code); // 200
+            if (code == 200) {
+                Map<String, List<String>> fields = conn.getHeaderFields();
+                for (String key : fields.keySet()) {
+                    System.out.println(key + ":" + fields.get(key));
+                }
+
+            } else {
+                throw new RuntimeException("连接失败，code = " + code);
+            }
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+                System.out.println("### close connection.....");
+
+            }
+        }
+    }
+
 
     /**
      * 获取下载的文件长度
@@ -56,7 +98,8 @@ public final class DownLoadManager {
     }
 
 
-    public static boolean download(String urlPath, String destPath) throws IOException {
+    @Deprecated
+    private static boolean download(String urlPath, String destPath) throws IOException {
         URL url = null;
         HttpURLConnection conn = null;
         BufferedInputStream bin = null;
@@ -103,7 +146,8 @@ public final class DownLoadManager {
         }
     }
 
-    public static boolean downloadWithCheck(long contentLen, String urlPath, String destPath) throws IOException {
+    @Deprecated
+    private static boolean downloadWithCheck(long contentLen, String urlPath, String destPath) throws IOException {
         URL url = null;
         HttpURLConnection conn = null;
         BufferedInputStream bin = null;
@@ -208,7 +252,7 @@ public final class DownLoadManager {
                     rout.write(buffer, 0, read);
                     total += read;
 
-                    System.out.print("times:" + times + " read: " + read + ":" + (total + currentLen)+":"+remoteLength + "\t");
+                    System.out.print("times:" + times + " read: " + read + ":" + (total + currentLen) + ":" + remoteLength + "\t");
                     if (times % 5 == 0 && times != 0) {
                         System.out.println();
                     }
@@ -278,7 +322,7 @@ public final class DownLoadManager {
                 rout.seek(currentLen);
                 int times = 0;
                 while ((read = bin.read(buffer)) != -1) {
-                    System.out.print("times:" + times + " read: " + read + ":" + (total + currentLen)+":"+remoteLength + "\t");
+                    System.out.print("times:" + times + " read: " + read + ":" + (total + currentLen) + ":" + remoteLength + "\t");
                     rout.write(buffer, 0, read);
                     total += read;
                     if (times % 5 == 0 && times != 0) {
