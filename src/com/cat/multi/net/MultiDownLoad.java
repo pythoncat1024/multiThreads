@@ -15,8 +15,10 @@ public class MultiDownLoad {
         DownLoadHelper.taskFinal("https://kkembed.kdwcl.com/get_file/3/2ec03661df58bd96600f4377b1673b70/49000/49276/49276.mp4/?rnd=1517150456577");
 
         DownLoadHelper.taskFinal("http://101.44.1.123/mp4files/5141000006F9CC4B/video.95stc.me/9b/9b-1u9Fguj513xHN0MzuMAp-a.mp4");
-
+        //   -- > 75330743-f8d7-46d2-a7e0-3c8ce11ebd979b-1u9Fguj513xHN0MzuMAp-a.mp4
+        //   -- > a655eab5-c51c-4456-bf04-834c658893959b-1u9Fguj513xHN0MzuMAp-a.mp4
         DownLoadHelper.taskFinal("http://media66.avtb02.com/media/videos/mp4/22683.mp4?st=xrt29avpqtDzWoxvK7ehxA&e=1517157842");
+if(1==1)return;
 
         DownLoadHelper.taskFinal("http://seku.tv/get_file/1/9187f29d4b06dbbb5d2436932bcb79e1fa5830b5b5/2000/2206/2206_480p.mp4/?rnd=1517150829965");
 

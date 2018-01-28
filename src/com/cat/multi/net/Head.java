@@ -27,11 +27,11 @@ public class Head {
         HashMap<String, Long> longHashMap = new HashMap<>();
         for (UriBean bean : select) {
             long length = 0;
-            try {
-                length = DownLoadManager.getRemoteLength(bean.getUrl());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                length = DownLoadManager.getRemoteLength(bean.getUrl());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             System.out.println(bean + " , " + length);
             longHashMap.put(bean.getUrl(), length);
         }
@@ -42,11 +42,11 @@ public class Head {
             e.printStackTrace();
         }
 
-        System.err.println("-------------------");
-        for (String key : longHashMap.keySet()) {
-
-            System.out.println(key + "\t:\t" + longHashMap.get(key));
-        }
+//        System.err.println("-------------------");
+//        for (String key : longHashMap.keySet()) {
+//
+//            System.out.println(key + "\t:\t" + longHashMap.get(key));
+//        }
 
     }
 }
