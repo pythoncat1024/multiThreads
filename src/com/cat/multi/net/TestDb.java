@@ -17,7 +17,7 @@ public class TestDb {
 
 //        DaoManager.show();
 
-        String key = "http://www.52ppx.com/get_file/1/8f10a38ab00465b0196e5140a7680337/1000/1413/1413.mp4/?rnd=1517128313390";
+        String key="http://www.99ff6.com/get_file/3/acdd0af6980223213b645a60264fab66/63000/63640/63640.mp4/";
         int delete = DaoManager.delete(key);
 
         if (delete > 0) {

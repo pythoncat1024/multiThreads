@@ -2,6 +2,7 @@ package com.cat.multi.net;
 
 import com.cat.multi.sql.DaoManager;
 
+import java.io.File;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -49,6 +50,8 @@ public class DownLoadHelper {
             System.out.println(submit + " , " + submit.get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+            boolean delete = new File(destPath).delete();
+            System.err.println("task() # delete temp dest when exception: " + delete + " , " + destPath);
         } finally {
             submit.cancel(true);
             service.shutdown();
