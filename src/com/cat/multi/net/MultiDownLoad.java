@@ -8,239 +8,62 @@ import java.util.concurrent.*;
  */
 public class MultiDownLoad {
 
-    @SuppressWarnings("Duplicates")
     public static void main(String[] args) {
 
-        System.out.println("multi download ... start ###");
+//        DownLoadHelper.taskFinal("http://www.yaoshe6.com/get_file/1/2f3126b42948bcbeccf9417384988258/10000/10244/10244.mp4/?rnd=1517135450602");
 
-        {
-            ExecutorService service = Executors.newFixedThreadPool(3);
-            Future<Long> submit0 = service.submit(() -> {
-                String urlPath = NetPath.urlPath0;
-                String destPath = PathManager.generatePath("newly1024.mp4");
-                return DownLoadManager.downloadRandom(urlPath, destPath, 2048);
-            });
-            try {
-                System.out.println(submit0 + " , " + submit0.get());
+        DownLoadHelper.taskFinal("https://kkembed.kdwcl.com/get_file/3/2ec03661df58bd96600f4377b1673b70/49000/49276/49276.mp4/?rnd=1517150456577");
 
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                submit0.cancel(true);
-                service.shutdown();
-            }
+        DownLoadHelper.taskFinal("http://101.44.1.123/mp4files/5141000006F9CC4B/video.95stc.me/9b/9b-1u9Fguj513xHN0MzuMAp-a.mp4");
 
-        }
+        DownLoadHelper.taskFinal("http://media66.avtb02.com/media/videos/mp4/22683.mp4?st=xrt29avpqtDzWoxvK7ehxA&e=1517157842");
 
-        {
-            ExecutorService executorService = Executors.newFixedThreadPool(3);
-            Future<Long> submit1 = executorService.submit(() -> {
-                String urlPath = NetPath.urlPath1;
-                String destPath = PathManager.generatePath("newly1025.mp4");
-                return DownLoadManager.downloadRandom(urlPath, destPath);
-            });
-            try {
-                System.out.println(submit1 + " , " + submit1.get());
+        DownLoadHelper.taskFinal("http://seku.tv/get_file/1/9187f29d4b06dbbb5d2436932bcb79e1fa5830b5b5/2000/2206/2206_480p.mp4/?rnd=1517150829965");
 
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                submit1.cancel(true);
-                executorService.shutdown();
-            }
-        }
+        DownLoadHelper.taskFinal("http://101.44.1.3/mp4files/2183000006FA37A2/video.95stc.me/9d/9d-nDtkSki4riCBOFw7iAqz-a.mp4");
 
-        {
-            ExecutorService service = Executors.newFixedThreadPool(3);
-            Future<Long> submit2 = service.submit(new Callable<Long>() {
-                @Override
-                public Long call() throws Exception {
-                    String urlPath = NetPath.urlPath2;
-                    String destPath = PathManager.generatePath("newly1026.mp4");
-                    return DownLoadManager.downloadRandom(urlPath, destPath);
-                }
-            });
-            try {
-                System.out.println(submit2 + " , " + submit2.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                submit2.cancel(true);
-                service.shutdown();
-            }
-        }
-        {
+        DownLoadHelper.taskFinal("http://seku.tv/get_file/1/e2aeb2909e712989bf282683f32352491f7cf970a7/2000/2207/2207_480p.mp4/?rnd=1517151450917");
 
-            ExecutorService service = Executors.newFixedThreadPool(3);
-            Future<Long> submit3 = service.submit(() -> {
-                String destPath = PathManager.generatePath("newly1027.mp4");
-                String urlPath = NetPath.urlPath3;
-                return DownLoadManager.downloadRandom(urlPath, destPath);
-            });
-            try {
-                System.out.println(submit3 + " , " + submit3.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                submit3.cancel(true);
-                service.shutdown();
-            }
-        }
-        {
-            ExecutorService service = Executors.newFixedThreadPool(3);
-            Future<Long> submit4 = service.submit(() -> {
-                String urlPath = NetPath.urlPath4;
-                String destPath = PathManager.generatePath("newly1028.mp4");
-                return DownLoadManager.downloadRandom(urlPath, destPath);
-            });
-            try {
-                System.out.println(submit4 + " , " + submit4.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                submit4.cancel(true);
-                service.shutdown();
-            }
-        }
+        DownLoadHelper.taskFinal("https://kkembed.kdwcl.com/get_file/3/2a172a8ecf949962e5dbd71c52a48303/49000/49210/49210.mp4/?rnd=1517151809369");
 
-        {
-            ExecutorService service = Executors.newFixedThreadPool(3);
-            Future<Long> submit = service.submit(() -> {
-                String urlPath = NetPath.urlPath5;
-                String destPath = PathManager.generatePath("newly1029.mp4");
-                return DownLoadManager.downloadRandom(urlPath, destPath);
-            });
-            try {
-                System.out.println(submit + " , " + submit.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            } finally {
-                submit.cancel(true);
-                service.shutdown();
-            }
-        }
+        DownLoadHelper.taskFinal("http://www.99ff6.com/get_file/3/8bcc3da04c88529643e4d44725117413/82000/82225/82225.mp4/");
 
-        {
-            String urlPath = NetPath.urlPath6;
-            String destPath = PathManager.generatePath("newly1030.mp4");
-            task(urlPath, destPath);
-        }
-        {
-            String urlPath = NetPath.urlPath7;
-            String destPath = PathManager.generatePath("newly1031.mp4");
-            task(urlPath, destPath);
-        }
-        {
-            String urlPath = NetPath.urlPath8;
-            String destPath = PathManager.generatePath("newly1032.mp4");
-            task(urlPath, destPath);
-        }
+        DownLoadHelper.taskFinal("http://www.52ppx.com/get_file/1/0a1921e450d1cdf717845ccc7128f50d/2000/2249/2249.mp4/?rnd=1517152318534");
 
-        {
-            String urlPath = NetPath.urlPath9;
-            String destPath = PathManager.generatePath("newly1033.mp4");
-            task(urlPath, destPath);
-        }
+        DownLoadHelper.taskFinal("http://www.52ppx.com/get_file/1/abf32f8292e915bb99d3b66247767aae/2000/2013/2013.mp4/?rnd=1517152487574");
 
-        {
-            String urlPath = "http://ugc-vliveochy.tc.qq.com/om.tc.qq.com/AzEX-2J45ZGkPOnE1UaTHSjcksJQbg7FtcC6rb---5xY/b0371e8epym.p701.1.mp4?sdtfrom=v1105&guid=393dd70feff6e1b0b7998158fd67f596&vkey=3D3F893C12361DD68795048811A716D4345FC94535DDD165F8EE64854228DDEA0CF0924E3E5F2D3F46663119A34B0F6B0315798EFEF5B0C2681DE5693B2FBAD4B638FD54C2F964F08A580640946E9AB941DEDB4C993D6CD8FC0697E99B0165FA45CFE4755CEC985CE9934C3B7546E1ABFFC84504C6724633&ocid=502601900";
-            String destPath = PathManager.generatePath("newly1034.mp4");
-            task(urlPath, destPath);
-        }
+        DownLoadHelper.taskFinal("http://www.51ppx.com/get_file/1/97f362d10918454fd7cc39adb2df67f8/1000/1017/1017.mp4/?rnd=1517152632324");
 
-        {
-            String destPath = PathManager.generatePath("newly1035.mp4");
-            String urlPath = "http://www.fcw05.com/get_file/1/c284e57e199dd9905fc47154847fc3baa12573b429/4000/4276/4276.mp4/";
-            task(urlPath, destPath);
-        }
-        {
-            String destPath = PathManager.generatePath("newly1036.mp4");
-            String urlPath = "http://www.fcw05.com/get_file/1/6a1f98e6ec25231fa922896c24c80d4fbfe825e694/4000/4246/4246.mp4/";
-            task(urlPath, destPath);
-        }
+        DownLoadHelper.taskFinal("http://101.44.1.120/mp4files/8228000006F3171F/video.95stc.me/9f/9f-b875pZImw9suPnCgLkMS-a.mp4");
 
-        {
-            String destPath = PathManager.generatePath("newly1037.mp4");
-            String urlPath = "http://www.77fcw.com/get_file/1/d98c5fc1009619f7622f9262932bdb4476a7795290/9000/9095/9095.mp4/";
-            task(urlPath, destPath);
-        }
-        {
-            String destPath = PathManager.generatePath("newly10377.mp4");
-            String urlPath = "http://media66.avtb02.com/media/videos/mp4/23149.mp4?st=4kAT98H22JYSb5NHNrzZSw&e=1517127981";
-            task(urlPath, destPath);
-        }
+        DownLoadHelper.taskFinal("http://www.sexx109.com/get_file/3/df9af02e86a00d462ee1fe7ceb38b1f7/48000/48313/48313.mp4/?rnd=1517153118812");
 
-        {
-            String destPath = PathManager.generatePath("newly1038.mp4");
-            task("http://media66.avtb02.com/media/videos/mp4/23142.mp4?st=oWYfxTq4X3MkZu8WiGOe2Q&e=1517128198",
-                    destPath);
-        }
+        DownLoadHelper.taskFinal("http://185.38.13.159//mp43/251023.mp4?st=_6-ZZIHy7c_Zb4fYMsIoAg&e=1517225285");
 
-        {
-            String destPath = PathManager.generatePath("newly1039.mp4");
-            task("http://media66.avtb02.com/media/videos/mp4/23152.mp4?st=mx8Rx7RCJrP8LTaohjhNQw&e=1517128390",
-                    destPath);
-        }
-        {
-            String destPath = PathManager.generatePath("newly1040.mp4");
+        DownLoadHelper.taskFinal("http://www.99ff6.com/get_file/3/241cd3c4a0d977a51b34cd991599958b/81000/81930/81930.mp4/");
 
-            task("http://www.77fcw.com/get_file/1/fc63f9efeae477dae01820e0adb2f14b5e26a1e1ea/0/348/348.mp4/",
-                    destPath);
-        }
+        DownLoadHelper.taskFinal("http://media66.avtb02.com/media/videos/mp4/22395.mp4?st=TKB4S9Sxxu4tsbzg0pqPaA&e=1517161246");
 
+        DownLoadHelper.taskFinal("http://media66.avtb02.com/media/videos/mp4/22546.mp4?st=ACpZB8-ikctPbfMxpERPIg&e=1517161344");
 
-        taskSimple("http://www.77fcw.com/get_file/1/3efac06a5cede376d4798c89da4c7690a4c3be6b09/8000/8983/8983.mp4/");
+        DownLoadHelper.taskFinal("http://seku.tv/get_file/1/7672d751fae84b285c03ef938c722391a58e83aaf4/0/577/577_480p.mp4/?rnd=1517154208550");
 
-        taskSimple("http://www.77fcw.com/get_file/1/3efac06a5cede376d4798c89da4c7690a4c3be6b09/8000/8983/8983.mp4/");
+        DownLoadHelper.taskFinal("http://185.38.13.130//mp43/251044.mp4?st=4Hu14TnGQ3SG3_aVCWLcaQ&e=1517226422");
 
-        taskSimple("http://www.77fcw.com/get_file/1/406935fb83f32093047505f81f8acd11766c89c6c8/8000/8911/8911.mp4/");
+        DownLoadHelper.taskFinal("http://www.77fcw.com/get_file/1/586f5d6047669d9b57201ef88896441f9b9ebb9e04/8000/8128/8128.mp4/");
 
-        taskSimple("http://www.77fcw.com/get_file/1/b4120d20a41ba01721c7827b1609886eb71ff48f93/8000/8872/8872.mp4/");
+        DownLoadHelper.taskFinal("http://seku.tv/get_file/1/1f8acb8767ad99167c3da172607568c6991d9cb8c1/0/823/823_360p.mp4/?rnd=1517155169000");
 
-        taskSimple("http://www.fcw05.com/get_file/1/f4dccc121a3a179c929791e6d3043f059b5e35fb9c/0/799/799.mp4/");
+        DownLoadHelper.taskFinal("http://seku.tv/get_file/1/dcbd6a87f55601f03b18224bb98dc92a6eae25ad64/0/539/539_480p.mp4/?rnd=1517155262835");
 
-        taskSimple("http://www.99ff6.com/get_file/3/423492ae67c3d756482cdf059620824b/83000/83600/83600.mp4/");
+        DownLoadHelper.taskFinal("http://www.77fcw.com/get_file/1/4aa0824cd3ef318716a85cfae0e390f08c3683ba06/8000/8024/8024.mp4/");
 
-        taskSimple("http://www.99ff6.com/get_file/3/a2b929192a0f02b2d2fb1cfaa853b673/83000/83630/83630.mp4/");
+        DownLoadHelper.taskFinal("http://www.yaoshe6.com/get_file/1/6bcd235fb2580b63c14e2b7d648f6e89/12000/12764/12764.mp4/?rnd=1517155956265");
 
-        taskSimple("http://www.99ff6.com/get_file/3/466db83cc0bc87403191d7d0e9619bc1/64000/64635/64635.mp4/");
+        DownLoadHelper.taskFinal("http://media66.avtb02.com/media/videos/mobile/23132.mp4?st=VzgJxbxdQQ2webYPuj-NUw&e=1517164469");
 
-        taskSimple("http://www.99ff6.com/get_file/3/ce3794791f39c4ee0388a5dba9e39568/83000/83490/83490.mp4/");
-
-        taskSimple("http://media66.avtb02.com/media/videos/mp4/22983.mp4?st=0G8MzPsdh52_vDccj4wL9w&e=1517131449");
-
-        taskSimple("http://seku.tv/get_file/1/b3f3914b4335a4b60bfbd4065d8aacb36bde46fe51/2000/2351/2351_480p.mp4/?rnd=1517124274430");
-
-        taskSimple("http://seku.tv/get_file/1/8d222c6054f226cfc844868eb53d65bc3a14d948d1/2000/2361/2361_480p.mp4/?rnd=1517124483780");
-
-        taskSimple("http://185.38.13.159//mp43/251664.mp4?st=OkqY4oi8_cnP7yPg6nztWA&e=1517196700");
-
-        taskSimple("http://www.52ppx.com/get_file/1/dc5e0a63c3a54e04850b03f810e916d1/2000/2035/2035.mp4/?rnd=1517124764866");
-
-        taskSimple("http://www.77fcw.com/get_file/1/f0cbbe85258cd5ba10f20129c712917eeb8260d92f/8000/8771/8771.mp4/");
-
-        taskSimple("http://www.77fcw.com/get_file/1/f0cbbe85258cd5ba10f20129c712917eeb8260d92f/8000/8771/8771.mp4/");
 
     }
 
-    private static void taskSimple(String url) {
-        task(url, PathManager.generatePathFromUrl(url));
-    }
 
-    private static void task(String urlPath, String destPath) {
-        ExecutorService service = Executors.newFixedThreadPool(3);
-        Future<Long> submit = service.submit(() -> {
-            System.out.println();
-            return DownLoadManager.downloadRandom(urlPath, destPath);
-        });
-        try {
-            System.out.println(submit + " , " + submit.get());
-        } catch (InterruptedException | ExecutionException e) {
-            System.err.println(submit + " , newly1030");
-            e.printStackTrace();
-        } finally {
-            submit.cancel(true);
-            service.shutdown();
-        }
-    }
 }
