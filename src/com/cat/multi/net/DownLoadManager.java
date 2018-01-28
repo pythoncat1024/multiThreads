@@ -210,7 +210,7 @@ public final class DownLoadManager {
     public static long downloadRandom(String urlPath, String destPath, int kb) throws IOException {
         long remoteLength = getRemoteLength(urlPath);
         if (checkFinish(remoteLength, destPath)) {
-            System.out.println("download already finished..." + new File(destPath).getName());
+            System.err.println("download already finished..." + new File(destPath).getName());
             return remoteLength;
         }
 

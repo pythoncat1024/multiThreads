@@ -3,6 +3,7 @@ package com.cat.multi.net;
 import com.cat.multi.sql.DaoManager;
 import com.cat.multi.sql.UriBean;
 
+import java.io.File;
 import java.util.Set;
 
 /**
@@ -13,12 +14,17 @@ public class TestDb {
 
     public static void main(String[] args) {
 
-        String url = "http://101.44.1.123/mp4files/5141000006F9CC4B/video.95stc.me/9b/9b-1u9Fguj513xHN0MzuMAp-a.mp4";
 
-        int insert1 = DaoManager.insert(url, PathManager.generatePathFromUrlFinal(url));
-        int insert2 = DaoManager.insert(url, PathManager.generatePathFromUrlFinal(url));
-
-        System.out.println("### -> " + insert1 + " , " + insert2);
 //        DaoManager.show();
+
+        String key = "http://www.52ppx.com/get_file/1/8f10a38ab00465b0196e5140a7680337/1000/1413/1413.mp4/?rnd=1517128313390";
+        int delete = DaoManager.delete(key);
+
+        if (delete > 0) {
+            new File(DaoManager.select(key)).delete();
+        }
+        int delete2 = DaoManager.delete("http://www.51ppx.com/get_file/1/97f362d10918454fd7cc39adb2df67f8/1000/1017/1017.mp4/?rnd=1517152632324");
+        System.out.println("del==" + delete + " , " + delete2);
+
     }
 }

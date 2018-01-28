@@ -5,6 +5,7 @@ import com.sun.xml.internal.rngom.parse.host.Base;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.swing.*;
+import java.io.File;
 import java.sql.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -367,6 +368,12 @@ public class DaoManager {
             }
             ret = stmt.executeUpdate(sql);
             c.commit();
+
+            String select = select(key);
+            if (ret > 0 && select != null) {
+                boolean delete = new File(select).delete();
+                System.err.println(delete + "删除 索引时，对应删除关联的文件：" + select);
+            }
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             throw new RuntimeException(e);

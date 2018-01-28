@@ -39,11 +39,6 @@ public class DownLoadHelper {
         }
     }
 
-    @Deprecated
-    public static void taskSimple(String url) {
-        task(url, PathManager.generatePathFromUrl(url));
-    }
-
     private static void task(String urlPath, String destPath) {
         ExecutorService service = Executors.newFixedThreadPool(3);
         Future<Long> submit = service.submit(() -> {
