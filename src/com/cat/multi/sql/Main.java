@@ -31,6 +31,16 @@ public class Main {
 //            DaoManager.delete(bean.getUrl());
         }
 
-//        DaoManager.dropTable();
+        DaoManager.dropTable();
+
+        Thread.sleep(600);
+        System.err.println("-XXX-------###-------");
+
+        set = DaoManager.select();
+        for (UriBean bean : set) {
+            System.out.println(bean);
+//            DaoManager.delete(bean.getUrl());
+        }
+
     }
 }

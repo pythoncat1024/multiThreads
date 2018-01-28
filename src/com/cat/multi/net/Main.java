@@ -10,24 +10,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        System.out.println(PathManager.generatePathFromUrl("http://media66.avtb02.com/media/videos/mp4/23142.mp4?st=oWYfxTq4X3MkZu8WiGOe2Q&e=1517128198"));
-
-
-        DownLoadHelper.taskSimple("http://tui.zxc123.info/20180123/42.mp4");
-
-        DownLoadHelper.taskSimple("http://tui.zxc123.info/20180123/18.mp4");
-
-        DownLoadHelper.taskSimple("http://www.99ff6.com/get_file/3/78de13f4ca8f0846a9d1bdc6f597d4f9/83000/83350/83350.mp4/");
-
-        DownLoadHelper.taskSimple("http://media66.avtb02.com/media/videos/mp4/22865.mp4?st=tlnoMNTcM5Dn_YRcTtE5mQ&e=1517133182");
-
-
-        DownLoadHelper.taskSimple("http://tui.zxc123.info/20180123/28.mp4");
-
-        DownLoadHelper.taskSimple("http://www.52ppx.com/get_file/1/86afe4819cfd7a2efa20af11566ca4b3/2000/2105/2105.mp4/?rnd=1517126907969");
-
-
 //        #####################################################
 
         DownLoadHelper.taskFinal("http://seku.tv/get_file/1/8755d0736679305a7623b6711661b6230b6edba4d3/0/785/785_360p.mp4/?rnd=1517127031823");

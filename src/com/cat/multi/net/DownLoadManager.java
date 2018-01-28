@@ -350,7 +350,8 @@ public final class DownLoadManager {
     }
 
     public static boolean checkFinish(long contentLength, String destPath) {
-        return contentLength == new File(destPath).length();
+        File dest = new File(destPath);
+        return dest.exists() && contentLength == dest.length();
     }
 
 }
