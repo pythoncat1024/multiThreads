@@ -32,7 +32,6 @@ public class Main {
 
         DownLoadHelper.taskFinal("http://seku.tv/get_file/1/bf0f4adf43586d21aeab01a2bcc514b4ab62e2615b/0/790/790_480p.mp4/?rnd=1517156227686");
 
-
         DownLoadHelper.taskFinal("http://seku.tv/get_file/1/56c88f71d0f6779ce61f3277d98bd5abfc577ec21d/0/814/814_360p.mp4/?rnd=1517156349073");
 
         DownLoadHelper.taskFinal("http://seku.tv/get_file/1/0f881f53df9b4d376f9fbcd4689bb7a0e35c8beaf1/0/553/553_480p.mp4/?rnd=1517156467230");

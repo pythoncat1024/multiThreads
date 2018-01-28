@@ -411,4 +411,14 @@ public class DaoManager {
     }
 
 
+    public static void show() {
+        Set<UriBean> select = select();
+
+        System.out.println("### show ---> start");
+        for (UriBean bean : select) {
+
+            System.out.println(bean);
+        }
+        System.out.println("### show <--- end##");
+    }
 }

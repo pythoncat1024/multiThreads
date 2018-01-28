@@ -23,10 +23,20 @@ public class DownLoadHelper {
      *
      * @param url url
      */
-    public static void taskFinal(String url) {
+    public static synchronized void taskFinal(String url) {
         String value = PathManager.generatePathFromUrlFinal(url);
-        DaoManager.insert(url, value);
-        task(url, value);
+        int insert = DaoManager.insert(url, value);
+        // todo:这一步出错了， task(url,value); 不能这样写，这样写就失去了数据库的意义了，数据库就是为了保证数据的统一。
+        // 但是这样写，无论数据库是否以及有这个key，都会去插入一个新的value,
+        // 然后 去 DownLoadManager#downloadRandom（）里面，这里的确会判断断点，但是前提是destPath 不变
+        // 不过由于这里是传人 task(key,value);[这里的value 每次都不一样]，导致断点判断失败
+        if (insert > 0) {
+            // 插入成功才去开启新的task
+            task(url, value);
+        } else {
+            // 插入失败，说明数据库已经存在，但是现在不知道下载完成了没有，所以，去再走一次，不过现在没有关系了，因为有断点保护
+            task(url, DaoManager.select(url));
+        }
     }
 
     @Deprecated
@@ -38,7 +48,7 @@ public class DownLoadHelper {
         ExecutorService service = Executors.newFixedThreadPool(3);
         Future<Long> submit = service.submit(() -> {
             System.out.println();
-            return DownLoadManager.downloadRandom(urlPath, destPath);
+            return DownLoadManager.downloadRandom(urlPath, destPath, 64);
         });
         try {
             System.out.println(submit + " , " + submit.get());
