@@ -1,5 +1,7 @@
 package com.cat.multi.net;
 
+import com.cat.multi.sql.DaoManager;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,7 +24,9 @@ public class DownLoadHelper {
      * @param url url
      */
     public static void taskFinal(String url) {
-        task(url, PathManager.generatePathFromUrlFinal(url));
+        String value = PathManager.generatePathFromUrlFinal(url);
+        DaoManager.insert(url, value);
+        task(url, value);
     }
 
     @Deprecated
@@ -39,7 +43,6 @@ public class DownLoadHelper {
         try {
             System.out.println(submit + " , " + submit.get());
         } catch (InterruptedException | ExecutionException e) {
-            System.err.println(submit + " , newly1030");
             e.printStackTrace();
         } finally {
             submit.cancel(true);

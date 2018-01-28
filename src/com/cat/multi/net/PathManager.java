@@ -15,27 +15,29 @@ public class PathManager {
     private PathManager() {
     }
 
-    private static HashMap<String, String> url2destPath = new HashMap<>();
-
-    static {
-    }
-
     /**
      * 保证了路径不重名，以及下载过的url 不会被覆盖或者重复下载
-     *
-     * @param url
-     * @return
      */
-    public static String generatePathFromUrlFinal(String url) {
-        if (url.endsWith(File.separator)) {
-            url = url.substring(0, url.length() - 1);
+    public static String generatePathFromUrlFinal(String downLoadUrl) {
+        String url = downLoadUrl;
+        if (url.contains(".")) {
+            url = url.substring(0, url.lastIndexOf(".") + 1);
+        } else {
+            System.err.println("这个路径很奇怪，没有. " + downLoadUrl);
+            url = url + ".";
         }
-        String name = UUID.randomUUID() + url.substring(url.lastIndexOf(File.separator) + 1, url.lastIndexOf(".")) + ".mp4";
+        if (url.contains(File.separator)) {
+            int beginIndex = url.lastIndexOf(File.separator) + 1;
+            int endIndex = url.lastIndexOf(".");
+            url = url.substring(beginIndex, endIndex);
+        } else {
+            System.err.println("这个路径很奇怪，没有 / " + downLoadUrl);
+            url = "funny";
+        }
+
+        String name = UUID.randomUUID() + url + ".mp4";
         String destPath = getRootDir() + File.separator + "raw/video" + File.separator + name; // 1. setData
-        if (!url2destPath.keySet().contains(url)) {
-            url2destPath.put(url, destPath);
-        }
-        return url2destPath.get(url);
+        return destPath;
     }
 
 

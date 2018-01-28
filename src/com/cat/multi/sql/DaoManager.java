@@ -1,14 +1,13 @@
 package com.cat.multi.sql;
 
 import com.sun.istack.internal.Nullable;
+import com.sun.xml.internal.rngom.parse.host.Base;
+import org.apache.commons.codec.binary.Base64;
 
-import javax.xml.transform.Source;
-import java.io.UnsupportedEncodingException;
+import javax.swing.*;
 import java.sql.*;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Executor;
 
 /**
  * Created by cat on 2018/1/28.
@@ -106,6 +105,11 @@ public class DaoManager {
         }
     }
 
+    /**
+     * 没有输入
+     *
+     * @return 返回的是解码后的数据
+     */
     public static Set<UriBean> select() {
 
         String sql = String.format("SELECT * FROM %s;", TABLE_NAME);
@@ -127,7 +131,7 @@ public class DaoManager {
             while (rs.next()) {
                 String url = rs.getString("URL");
                 String destPath = rs.getString("DEST_PATH");
-                UriBean bean = new UriBean(url, destPath);
+                UriBean bean = new UriBean(decode(url), decode(destPath));
                 beanArrayList.add(bean);
             }
         } catch (Exception e) {
@@ -159,8 +163,17 @@ public class DaoManager {
         return beanArrayList;
     }
 
+    /**
+     * 拿到的是一个未加密的 url
+     *
+     * @param key url
+     * @return 未加密的 destPath
+     */
     @Nullable
     public static String select(String key) {
+        if (!Base64.isBase64(key)) {
+            key = encode(key);
+        }
         HashSet<UriBean> beanArrayList = new HashSet<>();
 
         Connection c = null;
@@ -179,6 +192,12 @@ public class DaoManager {
             while (rs.next()) {
                 String url = rs.getString("URL");
                 String destPath = rs.getString("DEST_PATH");
+                if (Base64.isBase64(url)) {
+                    url = decode(url);
+                }
+                if (Base64.isBase64(destPath)) {
+                    destPath = decode(destPath);
+                }
                 UriBean bean = new UriBean(url, destPath);
                 beanArrayList.add(bean);
             }
@@ -217,13 +236,27 @@ public class DaoManager {
     }
 
 
+    /**
+     * 拿到 url， 会进行内部转码
+     *
+     * @param url      URL
+     * @param destPath path
+     * @return insert
+     */
     public static int insert(String url, String destPath) {
         return insert(new UriBean(url, destPath));
     }
 
     public static int insert(UriBean bean) {
-        String key = encode(bean.getUrl());
-        String value = encode(bean.getDestPah());
+        createTable();
+        String key = bean.getUrl();
+        String value = bean.getDestPah();
+        if (!Base64.isBase64(key)) {
+            key = encode(key);
+        }
+        if (!Base64.isBase64(value)) {
+            value = encode(value);
+        }
         String sql = String.format("INSERT INTO %s (%s,%s) VALUES(\"%s\",\"%s\");", TABLE_NAME, COLUMN_URL, COLUMN_DEST_PATH,
                 key, value);
         if (SHOW_SQL) {
@@ -270,7 +303,12 @@ public class DaoManager {
     }
 
     public static int update(String key, String value) {
-
+        if (!Base64.isBase64(key)) {
+            key = encode(key);
+        }
+        if (!Base64.isBase64(value)) {
+            value = encode(value);
+        }
         Connection c = null;
         Statement stmt = null;
         int ret = -1;
@@ -311,6 +349,9 @@ public class DaoManager {
     }
 
     public static int delete(String key) {
+        if (!Base64.isBase64(key)) {
+            key = encode(key);
+        }
         Connection c = null;
         Statement stmt = null;
         int ret = -1;
@@ -348,7 +389,6 @@ public class DaoManager {
         return ret;
     }
 
-
     /**
      * uri 必须转码 https:// 这个中间的 : 会导致sql 语法错误。
      *
@@ -356,18 +396,19 @@ public class DaoManager {
      * @return normal str
      */
     private static String encode(String src) {
-        try {
-            return Base64.getUrlEncoder().encodeToString(src.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+        if (Base64.isBase64(src)) {
+            return src;
+        }
+        return Base64.encodeBase64URLSafeString(src.getBytes());
+    }
+
+    private static String decode(String src) {
+        if (Base64.isBase64(src)) {
+            return new String(org.apache.commons.codec.binary.Base64.decodeBase64(src));
+        } else {
+            return src;
         }
     }
 
-    private static String decode(String encoded) {
-        try {
-            return new String(Base64.getUrlDecoder().decode(encoded), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }
