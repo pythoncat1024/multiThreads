@@ -40,6 +40,30 @@ public class PathManager {
         return destPath;
     }
 
+    /**
+     * 保证了路径不重名，以及下载过的url 不会被覆盖或者重复下载
+     */
+    public static String generatePathFromUrlFinal(String downLoadUrl, String desc) {
+        String url = downLoadUrl;
+        if (url.contains(".")) {
+            url = url.substring(0, url.lastIndexOf(".") + 1);
+        } else {
+            System.err.println("这个路径很奇怪，没有. " + downLoadUrl);
+            url = url + ".";
+        }
+        if (url.contains(File.separator)) {
+            int beginIndex = url.lastIndexOf(File.separator) + 1;
+            int endIndex = url.lastIndexOf(".");
+            url = url.substring(beginIndex, endIndex);
+        } else {
+            System.err.println("这个路径很奇怪，没有 / " + downLoadUrl);
+            url = "funny";
+        }
+        String name = UUID.randomUUID() + url + ".mp4";
+        String destPath = getRootDir() + File.separator + "raw/movie" + File.separator + desc + name; // 1. setData
+        return destPath;
+    }
+
 
     public static String getRootDir() {
         String path = Class.class.getClass().getResource("/").getPath();
